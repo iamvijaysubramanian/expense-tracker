@@ -1,25 +1,26 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 // Libs
-import { useDispatch } from "react-redux";
-import { addExpense } from "store/slices/expenseSlice";
-import { generateID } from "util/helpers";
+import { useDispatch } from 'react-redux';
+import { addExpense } from 'store/slices/expenseSlice';
+import { generateID } from 'util/helpers';
 // Components
-import { Title } from "components/expenseTracker/ui/title";
+import { Title } from 'components/expenseTracker/ui/title';
 // Constants
-import { categories } from "constants/categories";
+import { categories } from 'constants/categories';
 // Styles
-import styles from "./form.module.css";
-import { useRef } from "react";
+import styles from './form.module.css';
+import { useRef } from 'react';
+import { toast } from 'react-toastify';
 
-const todayDate = new Date().toISOString().split("T")[0];
+const todayDate = new Date().toISOString().split('T')[0];
 
 export function ExpenseForm() {
   const dispatch = useDispatch();
   const titleRef = useRef();
 
   const [amount, setAmount] = useState(0);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [date, setDate] = useState(todayDate);
   const [category, setCategory] = useState({
     name: categories[0].name,
@@ -27,13 +28,13 @@ export function ExpenseForm() {
   });
 
   const [isHidden, setIsHidden] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   const isValid = amount && title.trim().length > 0 && date;
 
   const formSubmit = (e) => {
     e.preventDefault();
-    setError("");
+    setError('');
 
     if (!isValid) {
       setError("Can't add empty expense");
@@ -48,16 +49,21 @@ export function ExpenseForm() {
       categoryColor: category.color,
       date,
     };
-    dispatch(addExpense(newExpense));
+    try {
+      dispatch(addExpense(newExpense));
+      toast.success('💸 Expense added');
+    } catch (error) {
+      toast.error('🛑 There was a problem');
+    }
     clearForm();
     titleRef.current.focus();
   };
 
   const clearForm = () => {
     setAmount(0);
-    setTitle("");
+    setTitle('');
     setDate(todayDate);
-    setDescription("");
+    setDescription('');
   };
 
   const setCategoryHandler = (e) => {
@@ -67,29 +73,22 @@ export function ExpenseForm() {
 
   return (
     <div className={styles.container}>
-      <Title
-        title="Add Experience"
-        hidden={isHidden}
-        onClick={() => setIsHidden(!isHidden)}
-      />
-      {error ? <p className="error">{error}</p> : undefined}
-      <form
-        className={`${styles.form} ${isHidden ? styles.hidden : ""}`}
-        onSubmit={formSubmit}
-      >
+      <Title title='Add Experience' hidden={isHidden} onClick={() => setIsHidden(!isHidden)} />
+      {error ? <p className='error'>{error}</p> : undefined}
+      <form className={`${styles.form} ${isHidden ? styles.hidden : ''}`} onSubmit={formSubmit}>
         <input
           ref={titleRef}
-          id="title"
-          type="text"
-          placeholder="Title *"
+          id='title'
+          type='text'
+          placeholder='Title *'
           value={title}
           onChange={(e) => {
             setTitle(e.target.value);
           }}
         />
         <textarea
-          id="description"
-          placeholder="Description "
+          id='description'
+          placeholder='Description '
           value={description}
           onChange={(e) => {
             setDescription(e.target.value);
@@ -97,14 +96,14 @@ export function ExpenseForm() {
           maxLength={300}
         />
         <input
-          id="price"
-          type="number"
+          id='price'
+          type='number'
           value={amount}
           onChange={(e) => {
             setAmount(parseInt(e.target.value));
           }}
         />
-        <select id="category" onChange={setCategoryHandler}>
+        <select id='category' onChange={setCategoryHandler}>
           {categories.map((cat) => (
             <option key={cat.id} value={cat.id}>
               {cat.name}
@@ -112,13 +111,13 @@ export function ExpenseForm() {
           ))}
         </select>
         <input
-          type="date"
+          type='date'
           value={date}
           onChange={(e) => {
             setDate(e.target.value);
           }}
         />
-        <input type="submit" value="Add Expense" />
+        <input type='submit' value='Add Expense' />
       </form>
     </div>
   );

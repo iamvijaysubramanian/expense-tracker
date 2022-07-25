@@ -18,23 +18,18 @@ export function ExpenseList() {
   const dispatch = useDispatch();
   const [itemsPerPage, setItemsPerPage] = useState(defaultItemsPerPage);
   const [isHidden, setIsHidden] = useState();
-  const { expenseList, fetching, filterBy } = useSelector(
-    (state) => state.expenses
-  );
+  const { expenseList, fetching, filterBy } = useSelector((state) => state.expenses);
   const { printMode } = useSelector((state) => state.ui);
-  const { currentPage, numberOfPages, changePage, items } = usePaging(
-    expenseList,
-    itemsPerPage
-  );
+  const { currentPage, numberOfPages, changePage, items } = usePaging(expenseList, itemsPerPage);
 
   useEffect(() => {
     changePage(1);
-    // console.log(expenseList);
   }, [expenseList, filterBy]);
 
   useEffect(() => {
     if (printMode) {
       changePage(1);
+      setIsHidden(false);
       setItemsPerPage(1000);
     }
   }, [printMode]);
@@ -60,9 +55,7 @@ export function ExpenseList() {
         }}
       />
       <div className={isHidden ? styles.hidden : ''}>
-        {items.length === 0 && !fetching && (
-          <p>There are no expenses. Congrats!</p>
-        )}
+        {items.length === 0 && !fetching && <p>There are no expenses. Congrats!</p>}
         <PageNumberList perPage={itemsPerPage} onClick={setItemsPerPage} />
         {!fetching && (
           <ul className={`${styles.list}`}>

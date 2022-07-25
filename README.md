@@ -21,12 +21,11 @@ Create Firestore database
     REACT_APP_FIREBASE_STORAGE_BUCKET =
     REACT_APP_FIREBASE_MESSAGE_SENDER_ID =
     REACT_APP_FIREBASE_API_ID =
-    REACT_APP_FIREBASE_ADMIN_ID =
 
 ### 4. `npm start`
 
-## To dos:
+## 5. If more users are needed
 
-1.  Add login
-2.  Add pdf export
-3.  Add currency conversion
+    Create new user in `Authentication` section with email and password.
+    Every new user has it's transactions.
+    More users more billing treshold. It's already optimized to minimum read and write.

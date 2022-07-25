@@ -1,10 +1,11 @@
 import { Login } from 'components/Login';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { BrowserRouter, useNavigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Tracker } from './pages/Tracker';
-import { getAuth } from 'firebase/auth';
-import { auth } from 'config/firebase';
+import { ToastContainer } from 'react-toastify';
+// Styles
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const { dark } = useSelector((state) => state.ui);
@@ -24,6 +25,7 @@ function App() {
           {/* <Route path='/login' element={authenticated ? <Navigate to='/' /> : <Login />} /> */}
         </Routes>
       </BrowserRouter>
+      <ToastContainer />
     </div>
   );
 }

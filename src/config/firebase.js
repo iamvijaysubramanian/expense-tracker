@@ -23,7 +23,21 @@ export const provider = new GoogleAuthProvider();
 provider.setCustomParameters({
   prompt: 'select_account',
 });
-const transactions_collection = 'transakcije';
+
+const getCollection = () => {
+  const userID = localStorage.getItem('userID');
+  let collectionName = '';
+  switch (userID) {
+    case '8cdi1pTfmMgV1mItRyic6NSrGOn2':
+      collectionName = 'transakcije';
+      break;
+    default:
+      collectionName = userID;
+  }
+  return collectionName;
+};
+
+// const transactions_collection = getCollection();
 
 export async function getDataByYear(year) {
   let data = [];
@@ -37,6 +51,7 @@ export async function getDataByYear(year) {
 }
 
 async function getDataByID(docID) {
+  const transactions_collection = getCollection();
   const docRef = doc(db, transactions_collection, docID);
   const response = await getDoc(docRef);
   const exists = response.exists();
@@ -47,6 +62,7 @@ async function getDataByID(docID) {
 }
 
 export async function getDataByDate(month, year) {
+  const transactions_collection = getCollection();
   const docID = `${month}.${year}`;
   const response = await getDoc(doc(db, transactions_collection, docID));
   const { expenseList } = response.data();
@@ -55,6 +71,7 @@ export async function getDataByDate(month, year) {
 }
 
 export async function addExpense(expense) {
+  const transactions_collection = getCollection();
   const { month, year } = getDateFromExpense(expense);
   const docID = `${month}.${year}`;
   const docRef = doc(db, transactions_collection, docID);
@@ -74,6 +91,7 @@ export async function addExpense(expense) {
 }
 
 export async function removeExpense(expense) {
+  const transactions_collection = getCollection();
   const { month, year } = getDateFromExpense(expense);
   const expenseID = expense.id;
   const docID = `${month}.${year}`;

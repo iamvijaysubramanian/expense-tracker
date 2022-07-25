@@ -30,7 +30,7 @@ export function ExpenseNavbar() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.circle}>
+      <div className={styles.circle} title='Switch theme'>
         {dark ? (
           <BsFillSunFill className={styles.button} onClick={handleThemeChange} />
         ) : (
@@ -38,13 +38,13 @@ export function ExpenseNavbar() {
         )}
       </div>
       <div style={{ display: 'flex', gap: '1rem' }}>
-        <div className={styles.circle}>
+        <div className={styles.circle} title='Change to year report'>
           <BsCalendarMonth className={styles.button} onClick={changeDataFilter} />
         </div>
-        <div className={styles.circle}>
+        <div className={styles.circle} title='Generate PDF'>
           <MdOutlinePictureAsPdf className={styles.button} onClick={generatePdf} />
         </div>
-        <div className={styles.circle}>
+        <div className={styles.circle} title='Logout'>
           <BiLogIn
             className={styles.button}
             onClick={() => {

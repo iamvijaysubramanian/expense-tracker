@@ -1,11 +1,11 @@
-import React, { useState, useRef, useLayoutEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { auth } from 'config/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { FcGoogle } from 'react-icons/fc';
 //Styles
 import styles from './login.module.css';
 import { useDispatch } from 'react-redux';
 import { useAuth } from 'hooks/useAuth';
+import { toast } from 'react-toastify';
 
 export function Login() {
   const { authState, checkRedirect } = useAuth(null, '/');
@@ -33,9 +33,12 @@ export function Login() {
       //   })
       //   .catch((err) => console.error(err));
       await signInWithEmailAndPassword(auth, email, password);
+      toast.success('Login successful');
       const user = auth.currentUser;
+      localStorage.setItem('userID', user.uid);
     } catch (error) {
-      alert(error);
+      toast.error('Wrong email or password');
+      console.error(error);
     }
   };
 
