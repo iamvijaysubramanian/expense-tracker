@@ -2,6 +2,8 @@
 
 This app is free to use, all you need is firebase for storing expenses.
 
+[DEMO](https://mrexpense.netlify.app/login)
+
 ## Video Example
 <div align="center">
     <img src="./expense-tracker.gif" alt="Example Video" width="59%" align="center" />
