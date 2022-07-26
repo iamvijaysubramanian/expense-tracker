@@ -4,7 +4,7 @@ This app is free to use, all you need is firebase for storing expenses.
 
 ## Video Example
 <div align="center">
-    <img src="https://i.imgur.com/1tO85kP.gif" alt="drawing" width="59%" align="center" />
+    <img src="./expense-tracker.gif" alt="Example Video" width="59%" align="center" />
 </div>
 
 ## Instructions:
