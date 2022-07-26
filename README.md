@@ -2,6 +2,11 @@
 
 This app is free to use, all you need is firebase for storing expenses.
 
+## Video Example
+<div align="center">
+    <img src="https://i.imgur.com/1tO85kP.gif" alt="drawing" width="59%" align="center" />
+</div>
+
 ## Instructions:
 
 ### 1. `npm install`
