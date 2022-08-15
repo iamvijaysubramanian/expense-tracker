@@ -43,21 +43,24 @@ export function Login() {
   };
 
   return (
-    <div className={styles.container}>
-      {error ? <p>{error}</p> : undefined}
-      <h2 style={{ margin: 0 }}>Welcome</h2>
-      <h3>please login to expense tracker</h3>
-      <br />
-      {/* <button onClick={signIn}>
+    <>
+      <div className={styles.container}>
+        <img className={styles.banner} src='/images/BannerLogin.png' />
+        {error ? <p>{error}</p> : undefined}
+        <h2 style={{ margin: 0 }}>Welcome</h2>
+        <h3>please login to expense tracker</h3>
+        <br />
+        {/* <button onClick={signIn}>
         <FcGoogle size='1.3rem' /> Sign In With Google
       </button> */}
-      <form onSubmit={signIn}>
-        <input ref={emailRef} type='text' placeholder='Email' id='Email' />
-        <br />
-        <input ref={passwordRef} type='password' placeholder='Password' id='password' />
-        <br />
-        <input type='submit' value='Login' />
-      </form>
-    </div>
+        <form onSubmit={signIn}>
+          <input ref={emailRef} type='text' placeholder='Email' id='Email' />
+          <br />
+          <input ref={passwordRef} type='password' placeholder='Password' id='password' />
+          <br />
+          <input type='submit' value='Login' />
+        </form>
+      </div>
+    </>
   );
 }

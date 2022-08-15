@@ -7,6 +7,12 @@
   max-width: 300px;
   margin: auto;
 }
+.banner {
+  position: absolute;
+  top: 9rem;
+  z-index: -1;
+  max-width: 300px;
+}
 form {
   width: 100%;
 }

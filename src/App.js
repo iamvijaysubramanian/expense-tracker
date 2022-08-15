@@ -17,7 +17,7 @@ function App() {
   }, [dark]);
 
   return (
-    <div id='print' className={dark ? 'dark' : ''}>
+    <div id='print' className={dark ? 'dark' : ''} style={{ margin: '1rem' }}>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Tracker />} />
