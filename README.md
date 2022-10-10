@@ -2,7 +2,7 @@
 
 This app is free to use, all you need is firebase for storing expenses.
 
-[DEMO](https://mrexpense.netlify.app/login)
+[DEMO](https://mrexpense.netlify.app)
 
 ## Video Example
 <div align="center">
