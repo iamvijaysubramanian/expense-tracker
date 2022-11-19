@@ -1,5 +1,6 @@
-.container {
-  display: flex;
+.layout {
+  display: grid;
+  gap: 1rem;
   flex-direction: column;
 }
 
@@ -8,4 +9,28 @@ hr {
   width: 100%;
   margin-top: 4px;
   margin-bottom: 4px;
+}
+
+@media screen and (min-width: 800px) {
+  .layout {
+    /* max-width: 500px; */
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "Form List List List"
+      "Pie Pie Plot Plot";
+    gap: 1rem;
+  }
+  .layout > div:nth-child(1) {
+    grid-area: Form;
+  }
+  .layout > div:nth-child(2) {
+    grid-area: List;
+  }
+  .layout > div:nth-child(3) {
+    grid-area: Pie;
+  }
+  .layout > div:nth-child(4) {
+    grid-area: Plot;
+  }
 }

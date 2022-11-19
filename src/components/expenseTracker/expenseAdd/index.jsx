@@ -1,40 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from "react";
 // Libs
-import { useDispatch } from 'react-redux';
-import { addExpense } from 'store/slices/expenseSlice';
-import { generateID } from 'util/helpers';
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { addExpense } from "store/slices/expenseSlice";
+import { generateID } from "util/helpers";
 // Components
-import { Title } from 'components/expenseTracker/ui/title';
+import { Title } from "components/expenseTracker/ui/title";
+import { Container } from "components/expenseTracker/Container";
 // Constants
-import { categories } from 'constants/categories';
+import { categories } from "constants/categories";
 // Styles
-import styles from './form.module.css';
-import { useRef } from 'react';
-import { toast } from 'react-toastify';
+import styles from "./form.module.css";
 
-const todayDate = new Date().toISOString().split('T')[0];
+const todayDate = new Date().toISOString().split("T")[0];
 
-export function ExpenseForm() {
+export function AddExpense({ className }) {
   const dispatch = useDispatch();
   const titleRef = useRef();
 
   const [amount, setAmount] = useState(0);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [date, setDate] = useState(todayDate);
   const [category, setCategory] = useState({
     name: categories[0].name,
     color: categories[0].color,
   });
 
-  const [isHidden, setIsHidden] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const isValid = amount && title.trim().length > 0 && date;
 
   const formSubmit = (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     if (!isValid) {
       setError("Can't add empty expense");
@@ -51,9 +50,9 @@ export function ExpenseForm() {
     };
     try {
       dispatch(addExpense(newExpense));
-      toast.success('💸 Expense added');
+      toast.success("💸 Expense added");
     } catch (error) {
-      toast.error('🛑 There was a problem');
+      toast.error("🛑 There was a problem");
     }
     clearForm();
     titleRef.current.focus();
@@ -61,9 +60,9 @@ export function ExpenseForm() {
 
   const clearForm = () => {
     setAmount(0);
-    setTitle('');
+    setTitle("");
     setDate(todayDate);
-    setDescription('');
+    setDescription("");
   };
 
   const setCategoryHandler = (e) => {
@@ -72,10 +71,9 @@ export function ExpenseForm() {
   };
 
   return (
-    <div className={styles.container}>
-      <Title title='Add Experience' hidden={isHidden} onClick={() => setIsHidden(!isHidden)} />
+    <Container className={className} title={` + Add Expense`} hidePrint={true}>
       {error ? <p className='error'>{error}</p> : undefined}
-      <form className={`${styles.form} ${isHidden ? styles.hidden : ''}`} onSubmit={formSubmit}>
+      <form className={`${styles.form}`} onSubmit={formSubmit}>
         <input
           ref={titleRef}
           id='title'
@@ -94,6 +92,7 @@ export function ExpenseForm() {
             setDescription(e.target.value);
           }}
           maxLength={300}
+          rows={5}
         />
         <input
           id='price'
@@ -119,6 +118,6 @@ export function ExpenseForm() {
         />
         <input type='submit' value='Add Expense' />
       </form>
-    </div>
+    </Container>
   );
 }

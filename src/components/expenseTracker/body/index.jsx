@@ -1,18 +1,18 @@
-import React from 'react';
-import { ExpenseChart } from '../expenseChart';
-import { ExpenseForm } from '../expenseForm';
-import { ExpenseList } from '../expenseList';
+import React from "react";
+import { ExpensePieChart } from "../expensePieChart";
+import { ExpenseLineChart } from "../expensePlotChart";
+import { AddExpense } from "../expenseAdd";
+import { ExpenseList } from "../expenseList";
 // Styles
-import styles from './body.module.css';
+import styles from "./body.module.css";
 
 export function ExpenseBody() {
   return (
-    <div className={styles.container}>
-      <ExpenseForm />
-      <hr />
+    <div className={styles.layout}>
+      <AddExpense />
       <ExpenseList />
-      <hr />
-      <ExpenseChart />
+      <ExpensePieChart />
+      <ExpenseLineChart />
     </div>
   );
 }

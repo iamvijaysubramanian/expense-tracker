@@ -7,6 +7,7 @@
 :root {
   --color-dark: #333;
   --color-medium: #c2c2c2;
+  --color-muted: #b1b1b1;
   --color-light: #e6e6e6;
   --color-white: #fff;
   --color-primary: rgb(63, 109, 210);
@@ -29,7 +30,8 @@
 }
 body {
   margin: 0;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--color-light);
@@ -45,7 +47,8 @@ svg {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 }
 
 .error {

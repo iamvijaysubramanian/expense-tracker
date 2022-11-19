@@ -1,26 +1,30 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 // Components
-import { ExpenseItem } from './expenseItem';
-import { Title } from 'components/expenseTracker/ui/title';
-import { Spinner } from 'components/expenseTracker/ui/spinner';
-import { Pagination } from './pagination';
-import { usePaging } from 'hooks/usePaging';
+import { ExpenseItem } from "./expenseItem";
+import { Container } from "components/expenseTracker/Container";
+import { Spinner } from "components/expenseTracker/ui/spinner";
+import { Pagination } from "./pagination";
+import { usePaging } from "hooks/usePaging";
 // Styles
-import styles from './expenseList.module.css';
-import { useEffect } from 'react';
-import { PageNumberList } from './pageNumberList';
-import { printOff } from 'store/slices/uiSlice';
+import styles from "./expenseList.module.css";
+import { useEffect } from "react";
+import { PageNumberList } from "./pageNumberList";
+import { printOff } from "store/slices/uiSlice";
 
-const defaultItemsPerPage = 5;
+const defaultItemsPerPage = 10;
 
-export function ExpenseList() {
+export function ExpenseList({ className }) {
   const dispatch = useDispatch();
   const [itemsPerPage, setItemsPerPage] = useState(defaultItemsPerPage);
-  const [isHidden, setIsHidden] = useState();
-  const { expenseList, fetching, filterBy } = useSelector((state) => state.expenses);
+  const { expenseList, fetching, filterBy } = useSelector(
+    (state) => state.expenses
+  );
   const { printMode } = useSelector((state) => state.ui);
-  const { currentPage, numberOfPages, changePage, items } = usePaging(expenseList, itemsPerPage);
+  const { currentPage, numberOfPages, changePage, items } = usePaging(
+    expenseList,
+    itemsPerPage
+  );
 
   useEffect(() => {
     changePage(1);
@@ -29,7 +33,6 @@ export function ExpenseList() {
   useEffect(() => {
     if (printMode) {
       changePage(1);
-      setIsHidden(false);
       setItemsPerPage(1000);
     }
   }, [printMode]);
@@ -46,16 +49,11 @@ export function ExpenseList() {
   }, [itemsPerPage]);
 
   return (
-    <div className={styles.container}>
-      <Title
-        title='Expense List'
-        hidden={isHidden}
-        onClick={() => {
-          setIsHidden((prev) => !prev);
-        }}
-      />
-      <div className={isHidden ? styles.hidden : ''}>
-        {items.length === 0 && !fetching && <p>There are no expenses. Congrats!</p>}
+    <Container className={className} title='Expense List'>
+      <div>
+        {items.length === 0 && !fetching && (
+          <p>There are no expenses. Congrats!</p>
+        )}
         <PageNumberList perPage={itemsPerPage} onClick={setItemsPerPage} />
         {!fetching && (
           <ul className={`${styles.list}`}>
@@ -75,6 +73,6 @@ export function ExpenseList() {
       </div>
       {fetching && <Spinner />}
       <div className={styles.pageBreak}></div>
-    </div>
+    </Container>
   );
 }
