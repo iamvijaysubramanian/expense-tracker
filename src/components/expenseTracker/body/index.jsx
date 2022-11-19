@@ -1,6 +1,6 @@
 import React from "react";
 import { ExpensePieChart } from "../expensePieChart";
-import { ExpenseLineChart } from "../expensePlotChart";
+import { ExpenseLineChart } from "../expenseLineChart";
 import { AddExpense } from "../expenseAdd";
 import { ExpenseList } from "../expenseList";
 // Styles

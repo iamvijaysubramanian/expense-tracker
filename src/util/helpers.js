@@ -1,3 +1,6 @@
+import { colorsChartLine } from "constants/categories";
+import dayjs from "dayjs";
+
 export function generateID() {
   const string = Date.now().toString(8);
   return (
@@ -55,4 +58,20 @@ export const getDateFromExpense = (expense) => {
 
 export const calculateAmount = (list) => {
   return list.reduce((sum, obj) => (sum += obj.amount), 0);
+};
+
+export const filterDatasetForLineChart = (expenseList, labels) => {
+  const monthName = dayjs(expenseList[0].date).format("MMMM");
+  const color = colorsChartLine[dayjs(expenseList[0].date).month()];
+  return {
+    label: monthName,
+    data: labels.map((day) =>
+      expenseList.reduce(function (acc, obj) {
+        if (day == dayjs(obj.date).date()) return acc + obj.amount;
+        return acc + 0;
+      }, 0)
+    ),
+    borderColor: color,
+    backgroundColor: color,
+  };
 };
