@@ -63,7 +63,7 @@ export function ExpenseLineChart({ className }) {
 
   return (
     <Container className={className} title='Expense Trends'>
-      <Line options={options} data={data} className={styles.lineChart} />
+      <Line options={options} data={data} />
     </Container>
   );
 }
